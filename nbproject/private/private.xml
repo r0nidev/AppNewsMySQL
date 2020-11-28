@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/r0ni/NetBeansProjects/AppNewsMySQL/src/java/com/nl/controler/Controlador.java</file>
+            <file>file:/home/r0ni/NetBeansProjects/AppNewsMySQL/web/index.jsp</file>
+            <file>file:/home/r0ni/NetBeansProjects/AppNewsMySQL/web/edit.jsp</file>
+            <file>file:/home/r0ni/NetBeansProjects/AppNewsMySQL/web/login.jsp</file>
+            <file>file:/home/r0ni/NetBeansProjects/AppNewsMySQL/src/java/com/nl/configbd/Conexion.java</file>
+            <file>file:/home/r0ni/NetBeansProjects/AppNewsMySQL/src/java/com/nl/modelo/PersonalDAO.java</file>
+            <file>file:/home/r0ni/NetBeansProjects/AppNewsMySQL/src/java/com/nl/modelo/PostDAO.java</file>
+            <file>file:/home/r0ni/NetBeansProjects/AppNewsMySQL/web/readmore.jsp</file>
+        </group>
+    </open-files>
+</project-private>

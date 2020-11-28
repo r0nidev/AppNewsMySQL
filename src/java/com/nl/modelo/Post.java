@@ -1,6 +1,7 @@
 package com.nl.modelo;
 
 import java.io.InputStream;
+import javafx.scene.text.Text;
 
 /**
  *
@@ -12,18 +13,20 @@ public class Post {
     String titulo;
     String descripcion;
     String contenido;
+    //Text textolargo;
     InputStream foto;
     int status;
     String fecha;   
     
-    public Post(){
-        
+    public Post(){        
     }
 
+    //public Post(int id, String titulo, String descripcion, Text textlargo, String contenido, InputStream foto, int status, String fecha) {
     public Post(int id, String titulo, String descripcion, String contenido, InputStream foto, int status, String fecha) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
+        //this.textolargo = textlargo;
         this.contenido = contenido;
         this.foto = foto;
         this.status = status;
@@ -85,5 +88,13 @@ public class Post {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+    
+    /*public Text getTextolargo() {
+        return textolargo;
+    }
+
+    public void setTextolargo(Text textolargo) {
+        this.textolargo = textolargo;
+    }*/
     
 }

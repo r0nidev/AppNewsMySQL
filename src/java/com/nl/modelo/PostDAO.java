@@ -35,11 +35,12 @@ public class PostDAO {
                 Post p = new Post();
                 p.setId(rs.getInt(1));
                 p.setTitulo(rs.getString(2));
-                p.setFoto(rs.getBinaryStream(3));
-                p.setDescripcion(rs.getString(4));
-                p.setContenido(rs.getString(5));
+                p.setDescripcion(rs.getString(3));
+                p.setContenido(rs.getString(4));
+                p.setFoto(rs.getBinaryStream(5));
                 p.setFecha(rs.getString(6));
                 p.setStatus(rs.getInt(7));
+                //p.setTextolargo(rs.get);
                 post.add(p);
             }
         }catch(Exception e){
@@ -50,7 +51,8 @@ public class PostDAO {
     
     public int agregar(Post p){
         int r = 0;
-        String sql = "INSERT INTO post(titulo, descripcion, contenido) VALUES(?,?,?)";
+        //String sql = "INSERT INTO post(titulo, descripcion, contenido) VALUES(?,?,?)";
+        String sql = "INSERT INTO post(titulo, descripcion, contenido, foto, fecha_registro) VALUES(?,?,?,?,?)";
         try{
             con = cn.Conexion();
             ps = con.prepareStatement(sql);
@@ -58,8 +60,8 @@ public class PostDAO {
             ps.setString(1, p.getTitulo() );
             ps.setString(2, p.getDescripcion());
             ps.setString(3, p.getContenido());
-            //ps.setContenido(rs.getString(5));
-            //ps.setString(5, p.getFecha());
+            ps.setBlob(4, p.getFoto());
+            ps.setString(5, p.getFecha());
             //ps.setString(6, p.getStatus());
             //p.add(p);
             r = ps.executeUpdate(); // return 0 or 1
@@ -70,25 +72,26 @@ public class PostDAO {
             }
                 
         }catch(Exception e){
-            System.out.println("EXCEPTION: "+ e.toString());
+            System.out.println("EXCEPTION(agregar): "+ e.toString());
         }
         return r;
     }
     
 
-    
-        public void listarImg(int id, HttpServletResponse response){
-        String sql = "select *from post where id = "+ id;
+    public void listarImg(int id, HttpServletResponse response){
+        String sql = "select *from post where id="+ id;
         InputStream inputStream = null;
         OutputStream outputStream = null;
         BufferedInputStream bufferedInputStream = null;
         BufferedOutputStream bufferedOutputStream = null;
+        response.setContentType("image/*");
         try{
+            outputStream = response.getOutputStream();
             con = cn.Conexion(); //getConnection();
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            if(rs.next()){
-                inputStream = rs.getBinaryStream("Foto");
+            if(rs.next()){              // name column of db
+                inputStream = rs.getBinaryStream("foto"); 
             }
             bufferedInputStream = new BufferedInputStream(inputStream);
             bufferedOutputStream = new BufferedOutputStream(outputStream);
@@ -101,7 +104,7 @@ public class PostDAO {
         }
     }
     
-    //
+    // Para editar Post
     public Post listarId(int id){
         String sql = "select *from post where id ="+id;
         Post p = new Post();
@@ -112,17 +115,52 @@ public class PostDAO {
             while ( rs.next()){
                 p.setId(rs.getInt(1));
                 p.setTitulo(rs.getString(2));
-                p.setFoto(rs.getBinaryStream(3));
-                p.setDescripcion(rs.getString(4));
-                p.setContenido(rs.getString(5));
+                p.setDescripcion(rs.getString(3));
+                p.setContenido(rs.getString(4));
+                p.setFoto(rs.getBinaryStream(5));
                 p.setFecha(rs.getString(6));
                 p.setStatus(rs.getInt(7));
             }
         }catch(Exception e){
-            System.out.println("Exception2: "+e.toString());
+            System.out.println("Exception(listarId): "+e.toString());
         }
         return p;
     }
     
+    public int actualizar(Post p){
+        int r = 0;
+        //String sql = "UPDATE post SET titulo=?, descripcion=?, contenido=? WHERE id=?"; //, Estado=?, User=? where IdEpleado=?";
+        String sql = "UPDATE post SET titulo=?, descripcion=?, contenido=?, foto=?, fecha_registro=? WHERE id=?"; //, Estado=?, User=? where IdEpleado=?";
+        try{
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);            
+            ps.setString(1, p.getTitulo());
+            ps.setString(2, p.getDescripcion());
+            ps.setString(3, p.getContenido());  
+            ps.setBlob(4, p.getFoto()); // added
+            ps.setString(5, p.getFecha());
+            ps.setInt(6, p.getId());
+            
+            ps.executeUpdate();
+            if( r == 1){
+                r = 1;
+            }else {
+                r = 0;
+            }
+        }catch(Exception e){
+            System.out.println("EXCEPTION(actualizar): "+ e.toString());
+        }
+        return r;
+    }
     
+    public void eliminar(int id){ //(String id){
+        String sql = "DELETE FROM post WHERE id="+id;
+        try{
+            con = cn.Conexion();
+            ps = con.prepareStatement(sql);
+            ps.executeUpdate();                    
+        }catch(Exception e){
+            System.out.println("EXCEPTON(Delete): "+ e.toString());
+        }
+    }
 }
