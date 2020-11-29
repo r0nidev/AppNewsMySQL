@@ -12,8 +12,11 @@ public class Conexion {
     
     Connection con;
     String url = "jdbc:mysql://localhost:3306/sistemadb";
-    String user = "nic";
-    String pass = "pentester";    
+    //String user = "nic"; // on ubuntu
+    //String pass = "pentester";    // on ubuntu
+    String user = "root"; // Windows 10
+    String pass = "developer09#"; // Windows 10
+    
     
     
     public Connection Conexion() {        

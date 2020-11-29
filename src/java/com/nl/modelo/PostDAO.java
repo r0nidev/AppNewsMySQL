@@ -3,11 +3,13 @@ package com.nl.modelo;
 import com.nl.configbd.Conexion;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -43,10 +45,16 @@ public class PostDAO {
                 //p.setTextolargo(rs.get);
                 post.add(p);
             }
-        }catch(Exception e){
+        }catch(Exception e){ // another
+        //catch(SQLException e){ //catch(Exception e){ // another
+        //}catch(SQLException e){ // other
             System.out.println("EXCEPTION(listar): "+ e.toString());
-        }
+       // }catch(IOException e){
+       }/*catch(SQLException e){ 
+            System.out.println("IOException:: "+ e.toString());
+        }*/
         return post;
+        
     }
     
     public int agregar(Post p){
